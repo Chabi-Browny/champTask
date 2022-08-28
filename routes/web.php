@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index');
+
+Route::get('/champReg', 'ChampionRegisterController@index');
+Route::post('/champReg', 'ChampionRegisterController@store');
+Route::get('/toplists', 'ChampionToplistController@index');
