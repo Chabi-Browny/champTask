@@ -9,10 +9,11 @@ let TeamManager = function()
 
     this.btnWrapper = document.querySelector(".action-btn-group");
     this.removeBtn = document.querySelector("[name='remove_team']");
-    this.lotteryBtn = document.querySelector("[name='lottery']");
+    this.resultWrapper = document.querySelector(".submit-result");
     this.champNameField = document.querySelector("[name='champ_name']");
 
     this.teamPairs = [];
+    this.teamList = [];
     this.isTeamSizeChanged = false;
 };
 
@@ -31,12 +32,23 @@ let removeBtn = function()
         removeButton.setAttribute("class","btn btn-outline-danger");
         removeButton.setAttribute("onclick","removingTeam()");
         removeButton.innerHTML = "Remove Team";
-        this.btnWrapper.insertBefore(removeButton, this.btnWrapper.children[this.btnWrapper.children.length - 2]);
+        this.btnWrapper.insertBefore(removeButton, this.btnWrapper.children[this.btnWrapper.children.length - 1]);
     }
     else if( this.removeBtn !== null && this.teamWrapperChildSize < 3)
     {
         this.btnWrapper.removeChild(this.removeBtn);
     }
+};
+
+let scoresBtn = function()
+{
+    TeamManager.call(this);
+
+    let removeButton = document.createElement("a");
+        removeButton.setAttribute("href","remove_team");
+        removeButton.setAttribute("class","btn btn-info");
+        removeButton.innerHTML = "Register scores";
+        this.resultWrapper.appendChild(removeButton);
 };
 
 /**/
@@ -81,8 +93,6 @@ function addingTeam()
 
     this.teamWrapper.appendChild(row);
 
-    changeSubmitDisable(true);
-
     removeBtn();
 };
 
@@ -97,8 +107,6 @@ function removingTeam()
     {
         this.teamWrapper.removeChild(this.lastTeam);
     }
-
-    changeSubmitDisable(true);
 
     removeBtn();
 }
@@ -140,7 +148,7 @@ function generateMachList()
 
                     if (inputsName[0] === "tmn")
                     {
-                        mappedTeam.teamId = inputValue;
+                        mappedTeam.teamName = inputValue;
                     }
                     if (inputsName[0] === "tmm")
                     {
@@ -151,6 +159,8 @@ function generateMachList()
             teamList.push(mappedTeam);
         }
 
+        TeamManager.teamList = teamList;
+
         // pairing the teams
         let teamPairs = [];
         for (let indx = 0; indx < teamList.length; indx++)
@@ -158,21 +168,20 @@ function generateMachList()
             let current = teamList[indx];
             for (let ind = 0; ind < teamList.length - indx; ind++)
             {
-                let currentPar = {};
-                if (typeof teamList[ind+indx] !== "undefined" && current.teamId !== teamList[ind+indx].teamId)
+                let currentPair = {};
+                if (typeof teamList[ind+indx] !== "undefined" && current.teamName !== teamList[ind+indx].teamName)
                 {
-                    currentPar.matchTeam1 = current;
-                    currentPar.matchTeam2 = teamList[ind+indx];
-                    teamPairs.push(currentPar);
+                    currentPair.team1 = current;
+                    currentPair.team2 = teamList[ind+indx];
+
+                    teamPairs.push(currentPair);
                 }
             }
         }
-console.log(teamPairs);
+
         TeamManager.teamPairs = teamPairs;
 
         displayMatchList(teamPairs);
-
-        changeSubmitDisable(false);
     }
 };
 
@@ -190,24 +199,10 @@ function displayMatchList(teamPairs)
     for (let ndx = 0; ndx < teamPairs.length; ndx++)
     {
         let wallElementLi = document.createElement("li");
-        wallElementLi.innerHTML = teamPairs[ndx].matchTeam1.teamId + " - " + teamPairs[ndx].matchTeam2.teamId;
+        wallElementLi.innerHTML = teamPairs[ndx].team1.teamName + " - " + teamPairs[ndx].team2.teamName;
         listWallUl.appendChild(wallElementLi);
     }
     listWallWrapper.appendChild(listWallUl);
-}
-
-/**/
-function changeSubmitDisable(isDisable)
-{
-    let submitBtn = document.querySelector("[name='reg']");
-    if (isDisable)
-    {
-        submitBtn.setAttribute("disabled", "disabled");
-    }
-    else
-    {
-        submitBtn.removeAttribute("disabled");
-    }
 }
 
 function submitTeams()
@@ -224,14 +219,18 @@ function submitTeams()
         return false;
     }
 
-    if (typeof TeamManager.teamPairs === "undefined")
+    generateMachList();
+
+    if (typeof TeamManager.teamList === "undefined")
     {
-        alert("Please lottery the teams!");
+        alert("Missing value(s) in the form!");
         return false;
     }
 
     let csrfMetaContent = document.querySelector("[name='csrf-token']").getAttribute("content"),
-    xhr = new XMLHttpRequest();
+        submitInfoBox = document.querySelector(".submit-info"),
+        xhr = new XMLHttpRequest()
+    ;
 
     xhr.open("POST", "/champReg");
     xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
@@ -246,7 +245,7 @@ function submitTeams()
             console.log("xhrthis",xhr.responseText);
         }
     };
-    xhr.send(JSON.stringify({"teamsPairs": TeamManager.teamPairs, "champName": champName }));
+    xhr.send(JSON.stringify({ "teamlist": TeamManager.teamList,"teamsPairs": TeamManager.teamPairs, "champName": champName }));
 }
 
 </script>

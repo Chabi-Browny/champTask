@@ -1,6 +1,6 @@
 
 <nav class="navbar navbar-expand-lg bg-light">
-  <div class="container-fluid">
+  <div class="container">
     <a class="navbar-brand" href="#">Championship</a>
     <div class="collapse navbar-collapse" >
       <div class="navbar-nav">

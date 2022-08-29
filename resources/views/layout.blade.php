@@ -19,13 +19,12 @@
     <body>
         <div class="page-wrapper">
             <header>
-
                 @include('pageParts/header')
             </header>
-            <main class="content-wrapper">
+            <main>
                 @yield('content')
             </main>
-            <footer class="content-wrapper">
+            <footer>
                 @include('pageParts/footer')
             </footer>
         </div>

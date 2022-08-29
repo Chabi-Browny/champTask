@@ -1,7 +1,7 @@
  @extends('layout')
 
 @section('content')
-<div class="container-fluid">
+<div class="container">
     <div class="page-title">
         <h2>Championship Registration and Team Election</h2>
     </div>
@@ -44,13 +44,11 @@
         </div>
     </div>
     <div class="action-btn-group">
-    <!--<div class="d-grid gap-2 d-md-flex justify-content-md-start"></div>-->
         {{ Form::button('Add Team', ['name' => 'add_team', 'class' => 'btn btn-outline-success', 'onclick' => 'addingTeam()']) }}
-        {{ Form::button('Lottery', ['name' => 'lottery', 'class' => 'btn btn-outline-warning', 'onclick' => 'generateMachList()']) }}
         {{ Form::submit('Register', ['name' => 'reg','class' => 'btn btn-primary', 'onclick' => 'submitTeams()' ]) }}
-
     </div>
     {!! Form::close() !!}
     <div class="match-list-wall"></div>
+    <div class="submit-result"></div>
 </div>
 @endsection
