@@ -17,4 +17,8 @@ Route::get('/', 'HomeController@index');
 
 Route::get('/champReg', 'ChampionRegisterController@index');
 Route::post('/champReg', 'ChampionRegisterController@store');
-Route::get('/toplists', 'ChampionToplistController@index');
+
+Route::get('/scoreReg/{id}', 'MatchScoreRegisterController@getMatches');
+Route::post('/scoreReg', 'MatchScoreRegisterController@store');
+
+Route::get('/toplists/{id}', 'ChampionToplistController@listToplists');

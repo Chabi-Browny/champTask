@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Prototype\AbstractController;
 use App\Services\ChampionshipsService;
-use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 
 class ChampionRegisterController extends AbstractController
@@ -44,10 +43,7 @@ class ChampionRegisterController extends AbstractController
         $champServ->addMatches($teamPairs, $teamIds, $champId);
 
 
-//        return (new Response())->; // temporary return value
-        return false; // temporary return value
+        return new JsonResponse(['success' => 'Registration success!', 'campId' => $champId], 200, ['Content-type' => 'application/json']);
     }
-
-    public function storeMatchReuslts(){}
 
 }

@@ -9,14 +9,16 @@ class Championships extends Model
 {
     protected $table = 'championships';
 
+    protected $primaryKey = 'id';
+
+    public $timestamps = false;
+
     protected $fillable = [
         'name'
     ];
 
-    public $timestamps = false;
-
     public function matches()
     {
-        $this->hasMany(Matches::class);
+        return $this->hasMany(Matches::class);
     }
 }

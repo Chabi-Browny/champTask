@@ -40,12 +40,12 @@ let removeBtn = function()
     }
 };
 
-let scoresBtn = function()
+let scoresBtn = function(id)
 {
     TeamManager.call(this);
 
     let removeButton = document.createElement("a");
-        removeButton.setAttribute("href","remove_team");
+        removeButton.setAttribute("href", location.origin + "/scoreReg/" + id);
         removeButton.setAttribute("class","btn btn-info");
         removeButton.innerHTML = "Register scores";
         this.resultWrapper.appendChild(removeButton);
@@ -228,7 +228,6 @@ function submitTeams()
     }
 
     let csrfMetaContent = document.querySelector("[name='csrf-token']").getAttribute("content"),
-        submitInfoBox = document.querySelector(".submit-info"),
         xhr = new XMLHttpRequest()
     ;
 
@@ -240,12 +239,31 @@ function submitTeams()
     {
         if (xhr.readyState === 4 && xhr.status === 200 )
         {
-            console.log("xhrthis",this);
-            //if success redirect to
-            console.log("xhrthis",xhr.responseText);
+            let resp = JSON.parse(xhr.responseText);
+            if (typeof resp.success !== "undefined")
+            {
+                responseInfo(resp.success);
+
+                scoresBtn(resp.campId);
+            }
+
         }
     };
     xhr.send(JSON.stringify({ "teamlist": TeamManager.teamList,"teamsPairs": TeamManager.teamPairs, "champName": champName }));
+}
+
+function responseInfo(info)
+{
+    TeamManager.call(this);
+
+    let infoBox = document.createElement("div");
+    let result = document.createElement("p");
+    let message = document.createElement("p");
+    result.innerHTML = info;
+    message.innerHTML = "Register the championship matches";
+    infoBox.appendChild(result);
+    infoBox.appendChild(message);
+    this.resultWrapper.appendChild(infoBox);
 }
 
 </script>

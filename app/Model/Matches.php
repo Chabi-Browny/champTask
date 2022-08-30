@@ -10,29 +10,32 @@ class Matches extends Model
 {
     protected $table = 'matches';
 
-    protected $fillable = [
-        'date',
-        'championship_id',
-        'tema_one_id',
-        'tema_one_score',
-        'tema_two_id',
-        'tema_two_score',
-    ];
+    protected $primaryKey = 'id';
 
     public $timestamps = false;
 
+    protected $fillable = [
+        'championship_id',
+        'team_one_id',
+        'team_two_id',
+        'date',
+        'team_one_score',
+        'team_two_score',
+    ];
+
+
     public function championships()
     {
-        $this->belongsTo(Championships::class, 'championship_id');
+        return $this->belongsTo(Championships::class, 'championship_id');
     }
 
-    public function teamOne()
+    public function teamOneTeams()
     {
-        $this->belongsTo(Teams::class, 'tema_one_id');
+        return $this->belongsTo(Teams::class, 'team_one_id');
     }
 
-    public function teamTwo()
+    public function teamTwoTeams()
     {
-        $this->belongsTo(Teams::class, 'tema_two_id');
+        return $this->belongsTo(Teams::class, 'team_two_id');
     }
 }

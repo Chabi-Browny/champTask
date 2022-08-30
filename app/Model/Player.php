@@ -7,17 +7,19 @@ use App\Model\Teams;
 
 class Player extends Model
 {
-    public $table = 'player';
+    protected $table = 'player';
+
+    protected $primaryKey = 'id';
+
+    public $timestamps = false;
 
     protected $fillable = [
         'name'
     ];
 
-    public $timestamps = false;
-
     public function teams()
     {
-        $this->hasMany(Teams::class);
+        return $this->hasMany(Teams::class);
     }
 
 }

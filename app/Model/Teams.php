@@ -10,25 +10,27 @@ class Teams extends Model
 {
     protected $table = 'teams';
 
+    protected $primaryKey = 'id';
+
+    public $timestamps = false;
+
     protected $fillable = [
         'name',
         'player_one_id',
         'player_two_id',
     ];
 
-    public $timestamps = false;
-
-    public function playerOne()
+    public function playerOnePlayer()
     {
-        $this->belongsTo( Player::class, 'player_one_id' );
+        return $this->belongsTo( Player::class, 'player_one_id' );
     }
-    public function playerTow()
+    public function playerTowPlayer()
     {
-        $this->belongsTo( Player::class, 'player_two_id' );
+        return $this->belongsTo( Player::class, 'player_two_id' );
     }
 
     public function matches()
     {
-        $this->hasMany(Matches::class);
+        return $this->hasMany(Matches::class);
     }
 }

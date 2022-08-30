@@ -16,17 +16,17 @@ class MainSchema extends Migration
         Schema::create('player', function(Blueprint $table)
         {
             $table->id();
-            $table->string('name', 150)->unique();
+            $table->string('name', 150)->nullable(false)->unique();
         });
 
         Schema::create('teams', function(Blueprint $table)
         {
             $table->id();
-            $table->string('name', 255)->nullable(false)->unique()->comment('the name of the team');
+            $table->string('name', 255)->nullable(false)->unique();
 
-            $table->unsignedBigInteger('player_one_id')->nullable(false)->comment('striker');
+            $table->unsignedBigInteger('player_one_id')->nullable(false);
             $table->foreign('player_one_id')->references('id')->on('player')->onDelete('cascade');
-            $table->unsignedBigInteger('player_two_id')->nullable(false)->comment('goalkeeper');
+            $table->unsignedBigInteger('player_two_id')->nullable(false);
             $table->foreign('player_two_id')->references('id')->on('player')->onDelete('cascade');
         });
 
@@ -43,14 +43,14 @@ class MainSchema extends Migration
             $table->unsignedBigInteger('championship_id')->nullable(false);
             $table->foreign('championship_id')->references('id')->on('championships')->onDelete('cascade');
 
-            $table->unsignedBigInteger('tema_one_id')->nullable(false);
-            $table->foreign('tema_one_id')->references('id')->on('teams')->onDelete('cascade');
-            $table->unsignedBigInteger('tema_two_id')->nullable(false);
-            $table->foreign('tema_two_id')->references('id')->on('teams')->onDelete('cascade');
+            $table->unsignedBigInteger('team_one_id')->nullable(false);
+            $table->foreign('team_one_id')->references('id')->on('teams')->onDelete('cascade');
+            $table->unsignedBigInteger('team_two_id')->nullable(false);
+            $table->foreign('team_two_id')->references('id')->on('teams')->onDelete('cascade');
 
             $table->date('date')->unique();
-            $table->unsignedInteger('tema_one_score')->nullable(true);
-            $table->unsignedInteger('tema_two_score')->nullable(true);
+            $table->unsignedInteger('team_one_score')->nullable(true);
+            $table->unsignedInteger('team_two_score')->nullable(true);
         });
     }
 
@@ -64,8 +64,8 @@ class MainSchema extends Migration
         Schema::table('matches', function(Blueprint $table)
         {
             $table->dropForeign(['championship_id']);
-            $table->dropForeign(['tema_one_id']);
-            $table->dropForeign(['tema_two_id']);
+            $table->dropForeign(['team_one_id']);
+            $table->dropForeign(['team_two_id']);
             $table->drop();
         });
 

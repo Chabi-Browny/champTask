@@ -108,8 +108,8 @@ class ChampionshipsService
             $match = new Matches();
             $match->date = $date->getModifiedDate('+' . (string) $count . 'day');
             $match->championship_id = $champId;
-            $match->tema_one_id = $team1Ids;
-            $match->tema_two_id = $team2Ids;
+            $match->team_one_id = $team1Ids;
+            $match->team_two_id = $team2Ids;
 
             $match->save();
 
@@ -117,8 +117,52 @@ class ChampionshipsService
         }
     }
 
-    public function updateMatches()
+    /**/
+    public function getMatches($champId)
     {
+        $matches = new Matches();
+        $results = $matches->where('championship_id', $champId)->get();
+        $retVal = $results->toArray();
+        if (!empty($retVal))
+        {
+            $champ = $results[0]->championships->toArray();
+
+            foreach($results as $key => $res)
+            {
+                unset($retVal[$key]['championship_id']);
+                $retVal[$key]['team_one_id'] = $res->teamOneTeams->toArray();
+                $retVal[$key]['team_two_id'] = $res->teamTwoTeams->toArray();
+
+            }
+            $retVal['championship'] = $champ;
+
+            return $retVal;
+        }
+    }
+
+    /**/
+    public function updateMatches($champId, $scores)
+    {
+        $matches = new Matches();
+        $matchRes = $matches->where('championship_id',$champId)->get();
+        if (!empty($matchRes))
+        {
+            foreach($matchRes as $match)
+            {
+                $scoreArr = explode(':', $scores[$match->id]);
+                $match->team_one_score = $scoreArr[0];
+                $match->team_two_score = $scoreArr[1];
+                $match->save();
+            }
+        }
+    }
+
+    public function getToplists($champId)
+    {
+        $matches = new Matches();
+        $matchRes = $matches->where('championship_id',$champId)->get();
+
+        $topTeam1Score =  $matchRes->max('team_one_score');
         
     }
 
