@@ -22,6 +22,7 @@ class ChampionshipsService
 
         $player1Id = null;
         $player2Id = null;
+        
         $player = new Player();
         $player->where('name', $playerData['p1'])
                ->orWhere('name', $playerData['p2'])
@@ -32,8 +33,8 @@ class ChampionshipsService
             $player->name = $playerData['p1'];
             $player->save();
             $player1Id = $player->id;
-            $player = new Player();
 
+            $player = new Player();
             $player->name = $playerData['p2'];
             $player->save();
             $player2Id = $player->id;
@@ -163,7 +164,7 @@ class ChampionshipsService
         $matchRes = $matches->where('championship_id',$champId)->get();
 
         $topTeam1Score =  $matchRes->max('team_one_score');
-        
+
     }
 
 }

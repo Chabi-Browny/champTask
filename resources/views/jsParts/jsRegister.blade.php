@@ -231,6 +231,7 @@ function submitTeams()
         xhr = new XMLHttpRequest()
     ;
 
+    // next time do this with fetch, not this old stuff - refactor this pls
     xhr.open("POST", "/champReg");
     xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8" );
