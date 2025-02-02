@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Model;
+namespace App\Models;
 
-use App\Model\Matches;
-use App\Model\Player;
+use App\Models\Matches;
+use App\Models\Player;
 use Illuminate\Database\Eloquent\Model;
 
 class Teams extends Model

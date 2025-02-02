@@ -60,7 +60,7 @@ function addingTeam()
 
     let newTeamNumber = this.teamWrapperChildSize + 1,
     row = document.createElement("div");
-    row.setAttribute("class","row");
+    row.setAttribute("class","row  my-3");
 
     let teamNameDiv = document.createElement("div"),
         teamNameInp = document.createElement("input");
@@ -68,7 +68,7 @@ function addingTeam()
     teamNameDiv.setAttribute("class","col-4");
     teamNameInp.setAttribute("name", "tmn_" + newTeamNumber);
     teamNameInp.setAttribute("class", "form-control team-name");
-    teamNameInp.value = "Team " + newTeamNumber;
+    teamNameInp.setAttribute("placeholder", "Team " + newTeamNumber);
     teamNameDiv.appendChild(teamNameInp);
     row.appendChild(teamNameDiv);
 
@@ -125,6 +125,7 @@ function generateMachList()
         let teams = this.teamWrapper.children,
             teamList = []
         ;
+        
         for (let idx = 0; idx < teams.length; idx++)
         {
             let mappedTeam = {};
@@ -135,6 +136,7 @@ function generateMachList()
                 let inputsName = null,
                     teamFormItem = team[index].children[0]
                 ;
+
                 if (teamFormItem.nodeName.toLowerCase() === "input" && teamFormItem.value === "")
                 {
                     alert("Some field are empty. Please fill all the fields!");
@@ -150,6 +152,7 @@ function generateMachList()
                     {
                         mappedTeam.teamName = inputValue;
                     }
+
                     if (inputsName[0] === "tmm")
                     {
                         mappedTeam[inputsName[2]] = inputValue;

@@ -5,16 +5,19 @@ namespace App\Http\Controllers\Prototype;
 //use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 //use Illuminate\Foundation\Bus\DispatchesJobs;
 //use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Routing\Controller as BaseController;
+
+//use Illuminate\Routing\Controller as BaseController;
+use App\Http\Controllers\Prototype\Controller as BaseController;
+
 //use Illuminate\Http\Client\Request as ClientRequest;
 use Illuminate\Http\Request;
 
 /**
- * Description of AbstractController
+ * @desc the default main controller of Laravel 11
  */
-class AbstractController extends BaseController
+abstract class Controller
 {
-//    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+    //    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     protected $viewData = [];
     protected $viewName;
@@ -61,5 +64,4 @@ class AbstractController extends BaseController
             $viewData
         );
     }
-
 }

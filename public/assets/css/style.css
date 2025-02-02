@@ -1,25 +1,27 @@
-html,body
-{
-    margin: 0;
-    padding: 0;
+html, body {
+  margin: 0;
+  padding: 0;
 }
 
-
-.page-wrapper{
-    background-color: #fff;
-    color: #333333;
-    font-family: 'Nunito', sans-serif;
-    font-weight: 200;
+.page-wrapper {
+  background-color: #fff;
+  color: #333333;
+  font-family: "Nunito", sans-serif;
+  font-weight: 200;
 }
 
-.content-wrapper
-{
-    width: 75vw;
+.content-wrapper {
+  width: 75vw;
 }
-
 
 .flex-center {
-    align-items: center;
-    display: flex;
-    justify-content: center;
+  align-items: center;
+  display: flex;
+  justify-content: center;
 }
+
+.container .page-title {
+  display: table;
+}
+
+/*# sourceMappingURL=style.css.map */

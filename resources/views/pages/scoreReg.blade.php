@@ -1,25 +1,25 @@
- @extends('layout')
+@extends('layout')
 
 @section('content')
 <div class="container">
-    <div class="page-title">
+    <div class="page-title mx-auto my-5">
         <h2>Register score of the teams of the matches</h2>
     </div>
-    {!! Form::open(['url' => '/scoreReg']) !!}
-    <div class="row">
-        <div class="col-2">
-            <h4>Championship name</h4>
+    {{ html()->form('POST', '/scoreReg')->open() }}
+    <div class="row my-3">
+        <div class="col-3">
+            <h4 class="fw-bold">Championship name</h4>
         </div>
-        <div class="col-10">
-            {{ Form::text('champ_name', $matches['championship']['name'], ['class' => 'form-control', 'readonly']) }}
-            {{ Form::hidden('champ_id', $matches['championship']['id']) }}
+        <div class="col-9">
+            {{ html()->text('champ_name', $matches['championship']['name'])->attributes(['class'=>'form-control', 'readonly']) }}
+            {{ html()->hidden('champ_id', $matches['championship']['id']) }}
         </div>
     </div>
     <div class="row">
-        <div class="col-3">Match Date</div>
-        <div class="col-3">Team 1 Name</div>
-        <div class="col-3">Team 2 Name</div>
-        <div class="col-3">Scores</div>
+        <div class="col-3 fw-bold">Match Date</div>
+        <div class="col-3 fw-bold">Team 1 Name</div>
+        <div class="col-3 fw-bold">Team 2 Name</div>
+        <div class="col-3 fw-bold">Scores</div>
     </div>
     <div class="team-wrapper">
         <?php
@@ -27,7 +27,7 @@
                 foreach($matches as $key => $match):
                     if(is_int($key)):
             ?>
-                <div class="row">
+                <div class="row my-2">
                     <div class="col-3">
                         @if(!empty($match['date']))
                             {{ $match['date'] }}
@@ -40,7 +40,7 @@
                         <?php if(!empty($match['team_two_id']) && !empty($match['team_two_id']['name'])) { echo $match['team_two_id']['name']; } ?>
                     </div>
                     <div class="col-3">
-                        {{ Form::text('scores['.$match['id'].']', null, ['class' => 'form-control player-two', 'placeholder' => 'exp: 10:1']) }}
+                        {{ html()->text('scores['.$match['id'].']', null)->attributes(['class'=>'form-control player-two', 'placeholder' => 'exp: 10:1']) }}
                     </div>
                 </div>
         <?php
@@ -50,8 +50,8 @@
         ?>
     </div>
     <div class="action-btn-group">
-        {{ Form::submit('Register', ['name' => 'score_reg','class' => 'btn btn-primary' ]) }}
+        {{ html()->submit('Register')->attributes(['name' => 'score_reg','class' => 'btn btn-primary' ]) }}
     </div>
-    {!! Form::close() !!}
+    {{ html()->form()->close() }}
 </div>
 @endsection

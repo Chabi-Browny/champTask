@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Prototype\AbstractController;
+use App\Http\Controllers\Prototype\Controller as AbstractController;
 use App\Services\ChampionshipsService;
 
 class MatchScoreRegisterController extends AbstractController

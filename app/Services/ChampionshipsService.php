@@ -2,10 +2,10 @@
 
 namespace App\Services;
 
-use App\Model\Championships;
-use App\Model\Matches;
-use App\Model\Player;
-use App\Model\Teams;
+use App\Models\Championships;
+use App\Models\Matches;
+use App\Models\Player;
+use App\Models\Teams;
 use App\Helper\DateTimeHelper;
 /**
  * Description of ChampionshipsService
@@ -22,7 +22,7 @@ class ChampionshipsService
 
         $player1Id = null;
         $player2Id = null;
-        
+
         $player = new Player();
         $player->where('name', $playerData['p1'])
                ->orWhere('name', $playerData['p2'])

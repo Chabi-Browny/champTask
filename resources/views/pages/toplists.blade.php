@@ -5,7 +5,7 @@
     <div class="page-title">
         <h2>The TOP lists</h2>
     </div>
-    <div class="row">
+    <div class="row my-3">
         <div class="col-2">
             <h4>Championship name</h4>
         </div>
@@ -15,10 +15,10 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-3">Match Date</div>
-        <div class="col-3">Team 1 Name</div>
-        <div class="col-3">Team 2 Name</div>
-        <div class="col-3">Scores</div>
+        <div class="col-3 fw-bold">Match Date</div>
+        <div class="col-3 fw-bold">Team 1 Name</div>
+        <div class="col-3 fw-bold">Team 2 Name</div>
+        <div class="col-3 fw-bold">Scores</div>
     </div>
     <div class="team-wrapper">
         <?php

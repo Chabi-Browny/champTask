@@ -2,16 +2,16 @@
 
 @section('content')
 <div class="container">
-    <div class="page-title">
-        <h2>Championship Registration and Team Election</h2>
+    <div class="page-title mx-auto my-5">
+        <h2>Table Soccer Championship registration and team election</h2>
     </div>
-    {!! Form::open(['url' => '/champReg']) !!}
-    <div class="row">
-        <div class="col-2">
+    {{ html()->form('PUT', '/champReg')->open() }}
+    <div class="row my-3">
+        <div class="col-3">
             <h4>Championship name</h4>
         </div>
-        <div class="col-10">
-            {{ Form::text('champ_name', null, ['class' => 'form-control']) }}
+        <div class="col-9">
+            {{ html()->text('champ_name', null)->attributes(['class'=>'form-control']) }}
         </div>
     </div>
     <div class="row">
@@ -20,34 +20,34 @@
         <div class="col-4">Goolkeeper</div>
     </div>
     <div class="team-wrapper">
-        <div class="row">
+        <div class="row  my-3">
             <div class="col-4">
-                {{ Form::text('tmn_1', 'Team 1', ['class' => 'form-control player-one']) }}
+                {{ html()->text('tmn_1', null)->attributes(['class'=>'form-control player-one', 'placeholder' => 'Team 1']) }}
             </div>
             <div class="col-4">
-                 {{ Form::text('tmm_1_p1', null, ['class' => 'form-control player-one', 'placeholder' => 'Player 1']) }}
+                {{ html()->text('tmm_1_p1', null)->attributes(['class'=>'form-control player-one', 'placeholder' => 'Player 1']) }}
             </div>
             <div class="col-4">
-                {{ Form::text('tmm_1_p2', null, ['class' => 'form-control player-two', 'placeholder' => 'Player 1']) }}
+                {{ html()->text('tmm_1_p2', null)->attributes(['class'=>'form-control player-two', 'placeholder' => 'Player 2']) }}
             </div>
         </div>
-        <div class="row">
+        <div class="row  my-3">
             <div class="col-4">
-                {{ Form::text('tmn_2', 'Team 2', ['class' => 'form-control player-one']) }}
+                {{ html()->text('tmn_2', null)->attributes(['class'=>'form-control player-one', 'placeholder' => 'Team 2']) }}
             </div>
             <div class="col-4">
-                {{ Form::text('tmm_2_p1', null, ['class' => 'form-control player-one', 'placeholder' => 'Player 1']) }}
+                {{ html()->text('tmm_2_p1', null)->attributes(['class'=>'form-control player-one', 'placeholder' => 'Player 1']) }}
             </div>
             <div class="col-4">
-                {{ Form::text('tmm_2_p2', null, ['class' => 'form-control player-two', 'placeholder' => 'Player 2']) }}
+                {{ html()->text('tmm_2_p2', null)->attributes(['class'=>'form-control player-two', 'placeholder' => 'Player 2']) }}
             </div>
         </div>
     </div>
-    <div class="action-btn-group">
-        {{ Form::button('Add Team', ['name' => 'add_team', 'class' => 'btn btn-outline-success', 'onclick' => 'addingTeam()']) }}
-        {{ Form::submit('Register', ['name' => 'reg','class' => 'btn btn-primary', 'onclick' => 'submitTeams()' ]) }}
+    <div class="action-btn-group my-3">
+        {{ html()->button('Add Team', 'button')->attributes(['name' => 'add_team', 'class' => 'btn btn-outline-success', 'onclick' => 'addingTeam()']) }}
+        {{ html()->submit('Register')->attributes(['name' => 'reg','class' => 'btn btn-primary', 'onclick' => 'submitTeams()' ]) }}
     </div>
-    {!! Form::close() !!}
+    {{ html()->form()->close() }}
     <div class="match-list-wall"></div>
     <div class="submit-result"></div>
 </div>
