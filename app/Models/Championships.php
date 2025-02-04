@@ -9,8 +9,6 @@ class Championships extends Model
 {
     protected $table = 'championships';
 
-    protected $primaryKey = 'id';
-
     public $timestamps = false;
 
     protected $fillable = [
@@ -19,6 +17,6 @@ class Championships extends Model
 
     public function matches()
     {
-        return $this->hasMany(Matches::class);
+        return $this->hasMany(Matches::class, 'championship_id');
     }
 }

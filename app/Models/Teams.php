@@ -10,8 +10,6 @@ class Teams extends Model
 {
     protected $table = 'teams';
 
-    protected $primaryKey = 'id';
-
     public $timestamps = false;
 
     protected $fillable = [
@@ -24,7 +22,8 @@ class Teams extends Model
     {
         return $this->belongsTo( Player::class, 'player_one_id' );
     }
-    public function playerTowPlayer()
+    
+    public function playerTwoPlayer()
     {
         return $this->belongsTo( Player::class, 'player_two_id' );
     }

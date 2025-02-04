@@ -9,10 +9,7 @@
         <div class="col-2">
             <h4>Championship name</h4>
         </div>
-        <div class="col-10">
-            <!--{{// Form::text('champ_name', $matches['championship']['name'], ['class' => 'form-control', 'readonly']) }}-->
-            <!--{{// Form::hidden('champ_id', $matches['championship']['id']) }}-->
-        </div>
+        <div class="col-10"></div>
     </div>
     <div class="row">
         <div class="col-3 fw-bold">Match Date</div>
@@ -22,6 +19,7 @@
     </div>
     <div class="team-wrapper">
         <?php
+        dump($champs);
             if(!empty($matches)):
 //                foreach($matches as $key => $match):
 //                    if(is_int($key)):

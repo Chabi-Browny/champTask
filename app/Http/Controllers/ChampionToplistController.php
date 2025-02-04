@@ -15,7 +15,18 @@ class ChampionToplistController extends AbstractController
     public function listToplists($champId)
     {
         $champServ = new ChampionshipsService();
-        $lists = $champServ->getToplists($champId);
+        $list = $champServ->getToplists($champId);
 
     }
+
+    public function toplists()
+    {
+        $champServ = new ChampionshipsService();
+        $lists = $champServ->getChampionships();
+
+        $this->setViewData('champs', $lists);
+
+        return $this->render();
+    }
+
 }

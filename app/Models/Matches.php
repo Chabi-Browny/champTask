@@ -10,8 +10,6 @@ class Matches extends Model
 {
     protected $table = 'matches';
 
-    protected $primaryKey = 'id';
-
     public $timestamps = false;
 
     protected $fillable = [

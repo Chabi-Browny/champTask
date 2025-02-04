@@ -93,6 +93,46 @@ class ChampionshipsService
         }
     }
 
+    public function getChampionships()
+    {
+        $retVal = [];
+
+        $match = new Matches();
+        $matches = $match->get();
+
+        foreach($matches as $match)
+        {
+            $matchRes = $match->toArray();
+            $teams1 = $match->teamOneTeams;
+            $teams2 = $match->teamTwoTeams;
+
+            $retVal []= [
+                'champ' => $match->championships->toArray()['name'],
+                'date'  => $matchRes['date'],
+                'team1' => [
+                    'name' => $teams1->toArray()['name'],
+                    'pyr1' => $teams1->playerOnePlayer->toArray()['name'],
+                    'pyr2' => $teams1->playerTwoPlayer->toArray()['name'],
+                    'score'=> $matchRes['team_one_score']
+                ],
+                'team2' => [
+                    'name' => $teams2->toArray()['name'],
+                    'pyr1' => $teams2->playerOnePlayer->toArray()['name'],
+                    'pyr2' => $teams2->playerTwoPlayer->toArray()['name'],
+                    'score'=> $matchRes['team_two_score']
+                ]
+            ];
+        }
+//// itt járok
+dump($retVal);
+
+
+dd($matches->toArray());
+
+
+        return $champs->toArray();
+    }
+
     /**/
     public function addMatches(array $teamPairs, array $teamsIds, int $champId )
     {
@@ -121,14 +161,13 @@ class ChampionshipsService
     /**/
     public function getMatches($champId)
     {
-        $matches = new Matches();
-        $results = $matches->where('championship_id', $champId)->get();
-        $retVal = $results->toArray();
+        $matchRes = $this->findMatchById($champId);
+        $retVal = $matchRes->toArray();
         if (!empty($retVal))
         {
-            $champ = $results[0]->championships->toArray();
+            $champ = $matchRes[0]->championships->toArray();
 
-            foreach($results as $key => $res)
+            foreach($matchRes as $key => $res)
             {
                 unset($retVal[$key]['championship_id']);
                 $retVal[$key]['team_one_id'] = $res->teamOneTeams->toArray();
@@ -144,9 +183,7 @@ class ChampionshipsService
     /**/
     public function updateMatches($champId, $scores)
     {
-        $matches = new Matches();
-        $matchRes = $matches->where('championship_id',$champId)->get();
-        if (!empty($matchRes))
+        if (!empty($matchRes = $this->findMatchById($champId)))
         {
             foreach($matchRes as $match)
             {
@@ -160,11 +197,16 @@ class ChampionshipsService
 
     public function getToplists($champId)
     {
-        $matches = new Matches();
-        $matchRes = $matches->where('championship_id',$champId)->get();
+        $matchRes = $this->findMatchById($champId);
 
         $topTeam1Score =  $matchRes->max('team_one_score');
 
     }
 
+
+    protected function findMatchById($champId)
+    {
+        $matches = new Matches();
+        return $matches->where('championship_id',$champId)->get();
+    }
 }

@@ -24,7 +24,8 @@ Route::post('/champReg', [ChampionRegisterController::class, 'store']);
 Route::get('/scoreReg/{id}', [MatchScoreRegisterController::class, 'getMatches']);
 Route::post('/scoreReg', [MatchScoreRegisterController::class, 'store']);
 
-Route::get('/toplists/{id}', [ChampionToplistController::class, 'listToplists' ]);
+Route::get('/toplists', [ChampionToplistController::class, 'toplists' ]);
+//Route::get('/toplists/{id}', [ChampionToplistController::class, 'listToplists' ]);
 
 //Route::get('/', 'HomeController@index');
 

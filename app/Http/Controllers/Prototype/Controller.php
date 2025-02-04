@@ -7,10 +7,12 @@ namespace App\Http\Controllers\Prototype;
 //use Illuminate\Foundation\Validation\ValidatesRequests;
 
 //use Illuminate\Routing\Controller as BaseController;
-use App\Http\Controllers\Prototype\Controller as BaseController;
+//use App\Http\Controllers\Prototype\Controller as BaseController;
 
 //use Illuminate\Http\Client\Request as ClientRequest;
 use Illuminate\Http\Request;
+
+use Exception;
 
 /**
  * @desc the default main controller of Laravel 11
@@ -41,6 +43,11 @@ abstract class Controller
 
     public function setViewName(string $viewName): void
     {
+        if ($viewName === '')
+        {
+            throw new Exception("Empty view name!");
+        }
+
         $this->viewName = $viewName;
     }
 
@@ -52,8 +59,13 @@ abstract class Controller
         }
     }
 
-    public function render()
+    public function render(string $viewName = null)
     {
+        if(!empty($viewName))
+        {
+            $this->viewName = $viewName;
+        }
+
         $viewData = array_merge(
             [ 'baseUrl' => $this->baseUrl ],
             $this->viewData
