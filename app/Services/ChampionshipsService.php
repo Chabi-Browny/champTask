@@ -93,43 +93,25 @@ class ChampionshipsService
         }
     }
 
-    public function getChampionships()
+    /**
+     * @desc - Querying all data through Match model and relations
+     * @return type
+     */
+    public function getAllMatchData()
     {
-        $retVal = [];
+        $champMdl = new Championships();
+        $champs = $champMdl->get();
 
-        $match = new Matches();
-        $matches = $match->get();
-
-        foreach($matches as $match)
+        foreach($champs as $champ)
         {
-            $matchRes = $match->toArray();
-            $teams1 = $match->teamOneTeams;
-            $teams2 = $match->teamTwoTeams;
-
-            $retVal []= [
-                'champ' => $match->championships->toArray()['name'],
-                'date'  => $matchRes['date'],
-                'team1' => [
-                    'name' => $teams1->toArray()['name'],
-                    'pyr1' => $teams1->playerOnePlayer->toArray()['name'],
-                    'pyr2' => $teams1->playerTwoPlayer->toArray()['name'],
-                    'score'=> $matchRes['team_one_score']
-                ],
-                'team2' => [
-                    'name' => $teams2->toArray()['name'],
-                    'pyr1' => $teams2->playerOnePlayer->toArray()['name'],
-                    'pyr2' => $teams2->playerTwoPlayer->toArray()['name'],
-                    'score'=> $matchRes['team_two_score']
-                ]
-            ];
+            $matches = $champ->matches;
+            foreach ($matches as $match)
+            {
+                $match->teamOneTeams;
+                $match->teamTwoTeams;
+            }
         }
-//// itt járok
-dump($retVal);
-
-
-dd($matches->toArray());
-
-
+        
         return $champs->toArray();
     }
 

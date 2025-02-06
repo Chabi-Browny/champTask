@@ -5,45 +5,61 @@
     <div class="page-title">
         <h2>The TOP lists</h2>
     </div>
-    <div class="row my-3">
-        <div class="col-2">
-            <h4>Championship name</h4>
-        </div>
-        <div class="col-10"></div>
-    </div>
-    <div class="row">
-        <div class="col-3 fw-bold">Match Date</div>
-        <div class="col-3 fw-bold">Team 1 Name</div>
-        <div class="col-3 fw-bold">Team 2 Name</div>
-        <div class="col-3 fw-bold">Scores</div>
-    </div>
     <div class="team-wrapper">
-        <?php
-        dump($champs);
-            if(!empty($matches)):
-//                foreach($matches as $key => $match):
-//                    if(is_int($key)):
+            <?php
+            if(!empty($champs)):
+                foreach($champs as $champ):
             ?>
-                <div class="row">
-                    <div class="col-3">
-<!--                        @if(!empty($match['date']))
-                        @endif-->
+                <div class="row my-3">
+                    <div class="col-3 fs-4 fw-semibold">
+                        <span>Championship name:</span>
                     </div>
-                    <div class="col-3">
-                        <?php // if(!empty($match['team_one_id']) && !empty($match['team_one_id']['name'])) { echo $match['team_one_id']['name']; } ?>
+                    <div class="col-9 fs-4">
+                        <span><?php echo $champ['name']; ?></span>
                     </div>
-                    <div class="col-3">
-                        <?php // if(!empty($match['team_two_id']) && !empty($match['team_two_id']['name'])) { echo $match['team_two_id']['name']; } ?>
-                    </div>
-                    <div class="col-3">
-                        <!--{{ Form::text('scores['.$match['id'].']', null, ['class' => 'form-control player-two', 'placeholder' => 'exp: 10:1']) }}-->
+                    <div class="row">
+                        <table class="table table-striped-columns text-center">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Match Date</th>
+                                    <th scope="col">Team 1 Name</th>
+                                    <th scope="col">Scores</th>
+                                    <th scope="col">Team 2 Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                if(!empty($champ['matches'])):
+                                    foreach($champ['matches'] as $key => $match):
+
+                                        $team1Score = $match['team_one_score'] ?? 0;
+                                        $team2Score = $match['team_two_score'] ?? 0;
+                                        $winnerLabel = ' The WINNER ';
+                                        $winnerPointer = $team1Score > $team2Score ? '<-' . $winnerLabel : $winnerLabel . '->';
+                                    ?>
+                                    <tr>
+                                        <th scope="row"><?php if(isset($match['date'])) echo $match['date']; ?></th>
+                                        <td><?php if(isset($match['team_one_teams']['name'])) echo $match['team_one_teams']['name']; ?></td>
+                                        <td>
+                                            <div class=""><?php echo $team1Score . ' : ' . $team2Score; ?></div>
+                                            <div class="fw-medium text-success">
+                                                <h6><?php echo $winnerPointer; ?></h6>
+                                            </div>
+                                        </td>
+                                        <td><?php if(isset($match['team_two_teams']['name'])) echo $match['team_two_teams']['name']; ?></td>
+                                    </tr>
+                                    <?php
+                                    endforeach;
+                                endif;
+                                ?>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-        <?php
-//                    endif;
-//                endforeach;
+            <?php
+                endforeach;
             endif;
-        ?>
+            ?>
     </div>
 </div>
 @endsection

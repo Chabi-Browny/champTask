@@ -16,13 +16,12 @@ class ChampionToplistController extends AbstractController
     {
         $champServ = new ChampionshipsService();
         $list = $champServ->getToplists($champId);
-
     }
 
     public function toplists()
     {
         $champServ = new ChampionshipsService();
-        $lists = $champServ->getChampionships();
+        $lists = $champServ->getAllMatchData();
 
         $this->setViewData('champs', $lists);
 
