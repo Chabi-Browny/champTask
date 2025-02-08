@@ -41,6 +41,6 @@ class MatchScoreRegisterController extends AbstractController
 
         $champServ->updateMatches($champId, $scores, $matchIds);
 
-        return redirect('/toplists/'.$champId);
+        return redirect('/crawlToplists/'.$champId);
     }
 }

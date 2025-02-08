@@ -6,23 +6,36 @@ use App\Http\Controllers\Prototype\Controller as AbstractController;
 use App\Services\ChampionshipsService;
 use Illuminate\Http\JsonResponse;
 
+/**/
 class ChampionRegisterController extends AbstractController
 {
+    /**/
     public function init()
     {
         $this->setViewName('pages/register');
         $this->setViewData('jsPart', 'jsRegister');
     }
 
-    public function store()
+    /**/
+    public function store(): JsonResponse
     {
         $teamPairs = $this->request->post("teamsPairs");
-        $teamList = $this->request->post("teamlist");
-        $champName = $this->request->post("champName");
+        $teamList = $this->request->post("teams");
+        $champName = $this->request->post("champ_name");
 
-        if ((!is_array($teamPairs) || !is_array($teamList))
-            || (count($teamPairs) === 0 || count($teamList) === 0)
-            || empty($champName))
+        $this->request->validate([
+            'champ_name' =>  'unique:championships,name|required|max:125|min:3',
+
+            'teamPairs.*.tmname' => 'unique:teams,name|required|max:125|min:3',
+            'teamPairs.*.p1' => 'required|max:125|min:3',
+            'teamPairs.*.p2' => 'required|max:125|min:3',
+
+            'teams.*.tmname' => 'unique:teams,name|required|max:125|min:3',
+            'teams.*.p1' => 'required|max:125|min:3',
+            'teams.*.p2' => 'required|max:125|min:3',
+        ]);
+
+        if ( !is_array($teamList) || count($teamList) === 0 )
         {
             throw new \Exception("Invalid parameters");
         }
@@ -42,8 +55,14 @@ class ChampionRegisterController extends AbstractController
 
         $champServ->addMatches($teamPairs, $teamIds, $champId);
 
-
-        return new JsonResponse(['success' => 'Registration success!', 'campId' => $champId], 200, ['Content-type' => 'application/json']);
+        return new JsonResponse([
+                'message' => 'Register the championship matches',
+                'success' => 'Registration success!',
+                'campId' => $champId
+            ],
+            200,
+            ['Content-type' => 'application/json']
+        );
     }
 
 }

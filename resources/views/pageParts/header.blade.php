@@ -6,7 +6,7 @@
       <div class="navbar-nav">
         <a class="nav-link" href="/">Home</a>
         <a class="nav-link" href="/champReg">Register TS-Champ.</a>
-        <a class="nav-link" href="/toplists">Toplist</a>
+        <a class="nav-link" href="/championshipToplists">Toplist</a>
       </div>
     </div>
   </div>

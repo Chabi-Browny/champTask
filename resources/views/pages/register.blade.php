@@ -5,7 +5,7 @@
     <div class="page-title mx-auto my-5">
         <h2>Table Soccer Championship registration and team election</h2>
     </div>
-    {{ html()->form('PUT', '/champReg')->open() }}
+    {{ html()->form('POST', '/champReg')->open() }}
     <div class="row my-3">
         <div class="col-3">
             <h4>Championship name</h4>
@@ -22,24 +22,24 @@
     <div class="team-wrapper">
         <div class="row  my-3">
             <div class="col-4">
-                {{ html()->text('tmn_1', null)->attributes(['class'=>'form-control player-one', 'placeholder' => 'Team 1']) }}
+                {{ html()->text('tmname_1', null)->attributes(['class'=>'form-control team-name', 'placeholder' => 'Team 1']) }}
             </div>
             <div class="col-4">
-                {{ html()->text('tmm_1_p1', null)->attributes(['class'=>'form-control player-one', 'placeholder' => 'Player 1']) }}
+                {{ html()->text('tmmember_1_p1', null)->attributes(['class'=>'form-control player-one', 'placeholder' => 'Player 1']) }}
             </div>
             <div class="col-4">
-                {{ html()->text('tmm_1_p2', null)->attributes(['class'=>'form-control player-two', 'placeholder' => 'Player 2']) }}
+                {{ html()->text('tmmember_1_p2', null)->attributes(['class'=>'form-control player-two', 'placeholder' => 'Player 2']) }}
             </div>
         </div>
         <div class="row  my-3">
             <div class="col-4">
-                {{ html()->text('tmn_2', null)->attributes(['class'=>'form-control player-one', 'placeholder' => 'Team 2']) }}
+                {{ html()->text('tmname_2', null)->attributes(['class'=>'form-control team-name', 'placeholder' => 'Team 2']) }}
             </div>
             <div class="col-4">
-                {{ html()->text('tmm_2_p1', null)->attributes(['class'=>'form-control player-one', 'placeholder' => 'Player 1']) }}
+                {{ html()->text('tmmember_2_p1', null)->attributes(['class'=>'form-control player-one', 'placeholder' => 'Player 1']) }}
             </div>
             <div class="col-4">
-                {{ html()->text('tmm_2_p2', null)->attributes(['class'=>'form-control player-two', 'placeholder' => 'Player 2']) }}
+                {{ html()->text('tmmember_2_p2', null)->attributes(['class'=>'form-control player-two', 'placeholder' => 'Player 2']) }}
             </div>
         </div>
     </div>

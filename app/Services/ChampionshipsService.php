@@ -49,24 +49,24 @@ class ChampionshipsService
         if (is_numeric($playerIds['striker']) && is_numeric($playerIds['keeper']))
         {
             $team = new Teams();
-            $team->where('name', $teamDatas['teamName'])
+            $team->where('name', $teamDatas['tmname'])
                  ->get();
 
             if (empty($team->toArray()))
             {
-                if (mb_strlen($teamDatas['teamName']) >= 255)
+                if (mb_strlen($teamDatas['tmname']) >= 255)
                 {
                     throw new \Exception('Invalid parameter length');
                 }
 
-                $team->name = $teamDatas['teamName'];
+                $team->name = $teamDatas['tmname'];
                 $team->player_one_id = $playerIds['striker'];
                 $team->player_two_id = $playerIds['keeper'];
                 $team->save();
 
                 return [
                     'id' => (int) $team->id,
-                    'name' => $teamDatas['teamName'],
+                    'name' => $teamDatas['tmname'],
                 ];
             }
         }
@@ -111,7 +111,7 @@ class ChampionshipsService
                 $match->teamTwoTeams;
             }
         }
-        
+
         return $champs->toArray();
     }
 
@@ -125,8 +125,8 @@ class ChampionshipsService
             $team1 = $teamPair['team1'];
             $team2 = $teamPair['team2'];
 
-            $team1Ids = $teamsIds[$team1['teamName']];
-            $team2Ids = $teamsIds[$team2['teamName']];
+            $team1Ids = $teamsIds[$team1['tmname']];
+            $team2Ids = $teamsIds[$team2['tmname']];
 
             $match = new Matches();
             $match->date = $date->getModifiedDate('+' . (string) $count . 'day');
